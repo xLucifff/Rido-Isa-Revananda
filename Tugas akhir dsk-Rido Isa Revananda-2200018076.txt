@@ -1,0 +1,248 @@
+.model small
+.code
+org 100h
+start:
+      jmp mulai
+nama db "Nama Pembeli: $"
+
+daftar db 13,10,'|--------------------------------------------------|'
+       db 13,10,'|-------------------Pilihan Sepatu-------------------|'
+       db 13,10,'|--------------------------------------------------|'
+       db 13,10,'|No |    Nama Sepatu      |         harga          |'
+       db 13,10,'|--------------------------------------------------|'   
+       db 13,10,'| 1 |    Vans             |     Rp 800.000         |'
+       db 13,10,'|--------------------------------------------------|'
+       db 13,10,'| 2 |    Converse         |     Rp 1.000.000       |'
+       db 13,10,'|--------------------------------------------------|'
+       db 13,10,'| 3 |    Piero            |     Rp 400.000         |'
+       db 13,10,'|--------------------------------------------------|'
+       db 13,10,'| 4 |    DC               |     Rp 1.100.000       |'
+       db 13,10,'|--------------------------------------------------|'
+       db 13,10,'| 5 |    Reebook          |     Rp 600.000         |'
+       db 13,10,'|--------------------------------------------------|'
+       db 13,10,'| 6 |    Nike             |     Rp 27.000,000      |'
+       db 13,10,'|--------------------------------------------------|','$'
+       
+daftar2 db 13,10,'|--------------------------------------------------|'
+        db 13,10,'|-------------------Pilihan Size-------------------|'
+        db 13,10,'|--------------------------------------------------|'
+        db 13,10,'|No |                   Size                       |'
+        db 13,10,'|--------------------------------------------------|'   
+        db 13,10,'| 1 |                    41                        |'
+        db 13,10,'|--------------------------------------------------|'
+        db 13,10,'| 2 |                    42                        |'
+        db 13,10,'|--------------------------------------------------|'
+        db 13,10,'| 3 |                    43                        |'
+        db 13,10,'|--------------------------------------------------|'
+        db 13,10,'| 4 |                    44                        |'
+        db 13,10,'|--------------------------------------------------|'
+        db 13,10,'| 5 |                    45                        |'
+        db 13,10,'|--------------------------------------------------|'
+        db 13,10,'| 6 |                    46                        |'
+        db 13,10,'|--------------------------------------------------|','$'
+        
+error    db 13,10,'NOMOR YANG ANDA MASUKAN SALAH $'
+pilih    db 13,10,'Silahkan Pilih sepatu Yang Anda Ingin Beli: $'
+pilih2   db 13,10,'Silahkan Pilih size Yang Anda Inginkan: $'
+
+mulai:
+    
+    mov ah,09h
+    lea dx,nama
+    int 21h
+    mov ah,0ah
+    int 21h 
+     
+    mov ah,09h
+    mov dx,offset daftar
+    int 21h
+     
+    jmp proses
+   
+     
+      
+error_nsg: 
+      mov ah,09h
+      mov dx,offset error
+      int 21h
+      int 20h
+
+proses: 
+      mov ah,09h
+      mov dx,offset pilih
+      int 21h
+      
+      mov ah,1
+      int 21h
+     
+      mov bl,al
+      
+      cmp bl,'1'
+      je hasil1
+      
+      
+      cmp bl,'2'
+      je hasil2 
+      
+      
+      cmp bl,'3'
+      je hasil3 
+      
+      
+      cmp bl,'4'
+      je hasil4 
+      
+      
+      cmp bl,'5'
+      je hasil5 
+      
+      
+      cmp bl,'6'
+      je hasil6 
+      jne error_nsg 
+;--------------------------------------
+      
+proses2:
+
+      mov ah,09h
+      mov dx,offset daftar2
+      int 21h
+       
+      mov ah,09h
+      mov dx,offset pilih2
+      int 21h
+       
+      mov ah,1
+      int 21h
+      mov bl,al
+      
+      
+      cmp bl,'1'
+      je hasil7 
+      
+      cmp bl,'2'
+      je hasil8
+      
+      cmp bl,'3'
+      je hasil9 
+      
+      cmp bl,'4'
+      je hasil10 
+      
+      cmp bl,'5'
+      je hasil11 
+      
+      cmp bl,'6'
+      je hasil12
+      
+      jne error_nsg
+;-------------------------------------
+
+hasil1:
+     mov ah,09h
+     lea dx,teks1
+     int 21h
+     jmp proses2
+     int 20h
+hasil2:
+     mov ah,09h
+     lea dx,teks2
+     int 21h
+     jmp proses2
+     int 20h
+hasil3:
+     mov ah,09h
+     lea dx,teks3
+     int 21h
+     int 20h
+hasil4:
+     mov ah,09h
+     lea dx,teks5
+     int 21h 
+     jmp proses2
+     int 20h
+hasil5:
+     mov ah,09h
+     lea dx,teks5
+     int 21h    
+     jmp proses2
+     int 20h
+hasil6:
+     mov ah,09h
+     lea dx,teks6
+     int 21h    
+     jmp proses2
+     int 20h
+hasil7:
+     mov ah,09h
+     lea dx,teks7
+     int 21h
+     int 20h
+hasil8:
+     mov ah,09h
+     lea dx,teks8
+     int 21h
+     int 20h
+hasil9:
+     mov ah,09h
+     lea dx,teks9
+     int 21h
+     int 20h
+hasil10:
+     mov ah,09h
+     lea dx,teks10
+     int 21h
+     int 20h
+hasil11:
+     mov ah,09h
+     lea dx,teks11
+     int 21h
+     int 20h
+hasil12:
+     mov ah,09h
+     lea dx,teks12
+     int 21h
+     int 20h
+
+
+;----------------------------------------------
+
+teks1 db 13,10,'Anda Memesan Vans Rp 800.000 $'
+      
+
+teks2 db 13,10,'Anda Memesan Converse Rp 1.000.000 $'
+      
+     
+teks3 db 13,10,'Anda Memesan Piero Rp 400.000 $'
+      
+      
+teks4 db 13,10,'Anda Memesan DC Rp 1.100.000 $'
+      
+      
+teks5 db 13,10,'Anda Memesan Reebook Rp600.000 $'
+     
+      
+teks6 db 13,10,'Anda Memesan Nike Rp27.000.000 $'
+ 
+;-------------------------------------------------      
+      
+teks7 db 13,10,'Anda Memesan ukuran 41'
+      db 13,10,'Terimakasih Telah Berbelanja $'
+      
+teks8 db 13,10,'Anda Memesan ukuran 42'
+      db 13,10,'Terimakasih Telah Berbelanja $'
+      
+teks9 db 13,10,'Anda Memesan ukuran 43'
+      db 13,10,'Terimakasih Telah Berbelanja $'
+      
+teks10 db 13,10,'Anda Memesan ukuran 44'
+      db 13,10,'Terimakasih Telah Berbelanja $'
+      
+teks11 db 13,10,'Anda Memesan ukuran 45'
+      db 13,10,'Terimakasih Telah Berbelanja $'
+      
+teks12 db 13,10,'Anda Memesan ukuran 46'
+      db 13,10,'Terimakasih Telah Berbelanja $'
+      
+
+end start
